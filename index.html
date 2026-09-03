@@ -1,966 +1,1375 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow | Visual Development Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #4361ee;
-        }
-        
-        .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
-        }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
-            position: relative;
-        }
-        
-        .featured-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
-        }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: #4361ee;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Randomly generated digital interface">
+<title>System Interface</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#05070d;
+    --panel:#0b0f18;
+    --panel2:#101622;
+    --text:#f4f7fb;
+    --muted:#7f8a9d;
+    --line:#202938;
+    --accent:#00f0ff;
+    --accent2:#7c4dff;
+    --danger:#ff477e;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(0,240,255,.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(124,77,255,.12),
+            transparent 32%
+        ),
+        var(--bg);
+    color:var(--text);
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+    overflow-x:hidden;
+}
+
+/* =========================
+   SCANLINES
+========================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+    opacity:.035;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 3px,
+            #fff 4px
+        );
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    width:min(1280px,92%);
+    margin:auto;
+    height:82px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--line);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.logo-box{
+    width:36px;
+    height:36px;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    display:grid;
+    place-items:center;
+    font-size:15px;
+    box-shadow:
+        0 0 18px rgba(0,240,255,.2);
+}
+
+.logo-name{
+    font-size:15px;
+}
+
+nav{
+    display:flex;
+    gap:28px;
+}
+
+nav a{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    transition:.25s;
+}
+
+nav a:hover{
+    color:var(--accent);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+    width:min(1280px,92%);
+    margin:auto;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:650px;
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:60px;
+    align-items:center;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:var(--accent);
+    font-family:monospace;
+    font-size:11px;
+    letter-spacing:2px;
+    margin-bottom:25px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:
+        0 0 8px var(--accent),
+        0 0 18px var(--accent);
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        opacity:1;
+    }
+    50%{
+        opacity:.35;
+    }
+}
+
+h1{
+    font-size:clamp(54px,8vw,108px);
+    line-height:.86;
+    letter-spacing:-6px;
+    max-width:800px;
+}
+
+.accent{
+    color:var(--accent);
+}
+
+.hero-desc{
+    max-width:620px;
+    margin-top:30px;
+    color:var(--muted);
+    line-height:1.8;
+    font-size:16px;
+}
+
+.command-row{
+    display:flex;
+    gap:10px;
+    margin-top:32px;
+}
+
+.command{
+    padding:13px 18px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--text);
+    text-decoration:none;
+    font-family:monospace;
+    font-size:12px;
+    transition:.25s;
+}
+
+.command:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+}
+
+.command.primary{
+    background:var(--accent);
+    color:#001014;
+    border-color:var(--accent);
+    font-weight:900;
+}
+
+/* =========================
+   TERMINAL VISUAL
+========================= */
+
+.terminal{
+    background:#070a11;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.45),
+        0 0 80px rgba(0,240,255,.05);
+}
+
+.terminal-head{
+    height:45px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    padding:0 15px;
+    gap:7px;
+}
+
+.circle{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#323b4b;
+}
+
+.terminal-title{
+    margin-left:8px;
+    font-family:monospace;
+    font-size:10px;
+    color:var(--muted);
+}
+
+.terminal-body{
+    padding:24px;
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+    font-size:12px;
+    line-height:2;
+    color:#9aa6b8;
+}
+
+.green{
+    color:var(--accent);
+}
+
+.purple{
+    color:var(--accent2);
+}
+
+.pink{
+    color:var(--danger);
+}
+
+.terminal-line{
+    display:flex;
+    gap:12px;
+}
+
+.prompt{
+    color:var(--accent);
+}
+
+.cursor{
+    display:inline-block;
+    width:7px;
+    height:14px;
+    background:var(--accent);
+    vertical-align:-2px;
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0;
+    }
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    margin:90px 0;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    border-bottom:1px solid var(--line);
+    padding-bottom:18px;
+    margin-bottom:18px;
+}
+
+.section-head h2{
+    font-size:27px;
+    letter-spacing:-1px;
+}
+
+.section-head span{
+    font-family:monospace;
+    font-size:10px;
+    color:var(--accent);
+    letter-spacing:2px;
+}
+
+/* =========================
+   MODULES
+========================= */
+
+.modules{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.module{
+    min-height:220px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.025),
+            transparent
+        ),
+        var(--panel);
+    border:1px solid var(--line);
+    padding:25px;
+    position:relative;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.module:hover{
+    border-color:#354154;
+    transform:translateY(-4px);
+}
+
+.module::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:var(--accent);
+    opacity:.05;
+    right:-40px;
+    bottom:-40px;
+}
+
+.module-number{
+    font-family:monospace;
+    font-size:10px;
+    color:var(--muted);
+}
+
+.module-icon{
+    width:46px;
+    height:46px;
+    border:1px solid var(--line);
+    margin:25px 0 20px;
+    display:grid;
+    place-items:center;
+    color:var(--accent);
+    font-size:17px;
+}
+
+.module h3{
+    font-size:17px;
+    margin-bottom:9px;
+}
+
+.module p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:13px;
+}
+
+/* =========================
+   DATA GRID
+========================= */
+
+.data-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.data{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:22px;
+}
+
+.data-label{
+    color:var(--muted);
+    font-family:monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.data-value{
+    margin-top:13px;
+    font-size:31px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.data-small{
+    margin-top:5px;
+    color:var(--accent);
+    font-family:monospace;
+    font-size:9px;
+}
+
+/* =========================
+   LARGE PANEL
+========================= */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.panel{
+    min-height:330px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:30px;
+}
+
+.panel h2{
+    font-size:31px;
+    letter-spacing:-1px;
+}
+
+.panel p{
+    color:var(--muted);
+    line-height:1.8;
+    margin-top:15px;
+    max-width:520px;
+}
+
+/* bars */
+
+.bars{
+    margin-top:35px;
+    display:grid;
+    gap:14px;
+}
+
+.bar-row{
+    display:grid;
+    grid-template-columns:80px 1fr 40px;
+    align-items:center;
+    gap:12px;
+    font-family:monospace;
+    font-size:10px;
+}
+
+.bar-bg{
+    height:5px;
+    background:#1a2230;
+}
+
+.bar-fill{
+    height:100%;
+    background:var(--accent);
+    box-shadow:0 0 10px var(--accent);
+}
+
+/* =========================
+   QUOTE
+========================= */
+
+.quote{
+    border-left:2px solid var(--accent);
+    padding:10px 0 10px 30px;
+}
+
+.quote-text{
+    max-width:900px;
+    font-size:clamp(25px,4vw,47px);
+    line-height:1.15;
+    font-weight:800;
+    letter-spacing:-2px;
+}
+
+.quote-author{
+    margin-top:20px;
+    color:var(--muted);
+    font-family:monospace;
+    font-size:11px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    width:min(1280px,92%);
+    margin:100px auto 25px;
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-family:monospace;
+    font-size:10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .hero{
+        grid-template-columns:1fr;
+        min-height:auto;
+        padding:80px 0 30px;
+    }
+
+    .modules{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .data-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    header{
+        height:65px;
+    }
+
+    nav{
+        display:none;
+    }
+
+    h1{
+        letter-spacing:-4px;
+    }
+
+    .hero{
+        padding-top:60px;
+    }
+
+    .command-row{
+        flex-wrap:wrap;
+    }
+
+    .modules{
+        grid-template-columns:1fr;
+    }
+
+    .data-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .section{
+        margin:65px 0;
+    }
+
+    .section-head{
+        display:block;
+    }
+
+    .section-head span{
+        display:block;
+        margin-top:8px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+</style>
 </head>
+
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                    <div class="logo-text">Code<span>Flow</span></div>
-                </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Build Apps Faster With <span>Visual Development</span></h1>
-                    <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CodeFlow Platform Interface">
-                </div>
-            </div>
-        </div>
-    </section>
+<header>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Powerful Features for Rapid Development</h2>
-                <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="logo">
+        <div class="logo-box" id="logoMark">+</div>
+        <div class="logo-name" id="logoName">SYSTEM</div>
+    </div>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose CodeFlow?</h2>
-                <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <nav id="nav"></nav>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Industry Leaders</h2>
-                <p>See what our customers have to say about their experience with CodeFlow.</p>
-            </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+</header>
 
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Start Building Today</h2>
-            <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
-            <button class="cta-button">Get Started for Free</button>
-        </div>
-    </section>
+<main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="logo">
-                        <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                        <div class="logo-text">Code<span>Flow</span></div>
-                    </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Roadmap</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
+<!-- HERO -->
+
+<section class="hero">
+
+    <div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            <span id="status"></span>
+        </div>
+
+        <h1>
+            <span id="titleA"></span>
+            <span class="accent" id="titleB"></span>
+        </h1>
+
+        <p class="hero-desc" id="heroDesc"></p>
+
+        <div class="command-row">
+
+            <a href="#" class="command primary" id="buttonA"></a>
+
+            <a href="#" class="command" id="buttonB"></a>
+
+        </div>
+
+    </div>
+
+
+    <div class="terminal">
+
+        <div class="terminal-head">
+
+            <span class="circle"></span>
+            <span class="circle"></span>
+            <span class="circle"></span>
+
+            <span class="terminal-title" id="terminalTitle">
+                system.log
+            </span>
+
+        </div>
+
+        <div class="terminal-body" id="terminalBody"></div>
+
+    </div>
+
+</section>
+
+
+<!-- MODULES -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2 id="modulesTitle"></h2>
+
+        <span id="modulesCode"></span>
+
+    </div>
+
+    <div class="modules" id="modules"></div>
+
+</section>
+
+
+<!-- DATA -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2 id="dataTitle"></h2>
+
+        <span>LIVE / DATA</span>
+
+    </div>
+
+    <div class="data-grid" id="dataGrid"></div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section class="section">
+
+    <div class="dashboard">
+
+        <div class="panel">
+
+            <h2 id="panelTitle"></h2>
+
+            <p id="panelText"></p>
+
+            <div class="bars" id="bars"></div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <h2 id="panel2Title"></h2>
+
+            <p id="panel2Text"></p>
+
+            <div class="bars" id="bars2"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- QUOTE -->
+
+<section class="section">
+
+    <div class="quote">
+
+        <div class="quote-text" id="quote"></div>
+
+        <div class="quote-author" id="author"></div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <span id="footerA"></span>
+
+    <span id="footerB"></span>
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   RANDOM ENGINE
+===================================== */
+
+const pick = arr =>
+    arr[Math.floor(Math.random()*arr.length)];
+
+const num = (min,max) =>
+    Math.floor(
+        Math.random()*(max-min+1)
+    )+min;
+
+
+/* =====================================
+   COLOR THEMES
+===================================== */
+
+const themes = [
+
+    ["#00f0ff","#7c4dff"],
+    ["#39ff88","#00d9ff"],
+    ["#ff477e","#ff9f1c"],
+    ["#a855f7","#ec4899"],
+    ["#00ffcc","#0088ff"],
+    ["#ffe600","#ff5c00"],
+    ["#00c6ff","#0072ff"],
+    ["#ff3cac","#784ba0"],
+    ["#00e676","#76ff03"],
+    ["#ff1744","#ff9100"]
+
+];
+
+const theme = pick(themes);
+
+document.documentElement.style.setProperty(
+    "--accent",
+    theme[0]
+);
+
+document.documentElement.style.setProperty(
+    "--accent2",
+    theme[1]
+);
+
+
+/* =====================================
+   BRAND
+===================================== */
+
+const brands = [
+
+    "NEXUS",
+    "VECTOR",
+    "CORE",
+    "PULSE",
+    "QUANT",
+    "ORBIT",
+    "NOVA",
+    "AETHER",
+    "MATRIX",
+    "FLUX",
+    "NODE",
+    "ZERO",
+    "SIGNAL",
+    "ION",
+    "CIRCUIT",
+    "VOLT"
+
+];
+
+const symbols = [
+    "+","×","◆","◇",
+    "◉","◎","△","▽",
+    "∎","∿","∞","⊙"
+];
+
+document.getElementById("logoName")
+    .textContent = pick(brands);
+
+document.getElementById("logoMark")
+    .textContent = pick(symbols);
+
+
+/* =====================================
+   NAV
+===================================== */
+
+const navSets = [
+
+    ["System","Modules","Data","Status"],
+    ["Overview","Network","Metrics","About"],
+    ["Dashboard","Signal","Monitor","Logs"],
+    ["Core","Engine","Nodes","Info"]
+
+];
+
+document.getElementById("nav").innerHTML =
+    pick(navSets)
+    .map(x =>
+        `<a href="#">${x}</a>`
+    )
+    .join("");
+
+
+/* =====================================
+   HERO
+===================================== */
+
+const titleA = [
+
+    "Build",
+    "Enter",
+    "Explore",
+    "Connect",
+    "Create",
+    "Control",
+    "Discover",
+    "Monitor",
+    "Access",
+    "Initialize"
+
+];
+
+const titleB = [
+
+    "The Future",
+    "New Systems",
+    "Another World",
+    "Digital Space",
+    "The Unknown",
+    "Infinite Data",
+    "New Signals",
+    "Beyond Limits",
+    "The Network",
+    "What Comes Next"
+
+];
+
+const descriptions = [
+
+    "A dynamic digital interface generated specifically for this visit. Every refresh creates another configuration.",
+
+    "A constantly changing system of color, data, modules and visual signals designed to feel different every time.",
+
+    "This interface has no permanent appearance. Its structure and content are generated dynamically in the browser.",
+
+    "A minimal experimental dashboard where technology, randomness and visual design meet.",
+
+    "One page. Thousands of possible variations. Refresh to initialize another configuration."
+
+];
+
+document.getElementById("status")
+    .textContent = pick([
+        "SYSTEM ONLINE",
+        "CONNECTION ACTIVE",
+        "NODE INITIALIZED",
+        "RANDOM MODE ACTIVE",
+        "SIGNAL DETECTED",
+        "CORE OPERATIONAL",
+        "SESSION READY"
+    ]);
+
+document.getElementById("titleA")
+    .textContent = pick(titleA) + " ";
+
+document.getElementById("titleB")
+    .textContent = pick(titleB);
+
+document.getElementById("heroDesc")
+    .textContent = pick(descriptions);
+
+document.getElementById("buttonA")
+    .textContent = pick([
+        "[ ENTER ]",
+        "[ START ]",
+        "[ EXPLORE ]",
+        "[ CONNECT ]",
+        "[ INITIALIZE ]"
+    ]);
+
+document.getElementById("buttonB")
+    .textContent = pick([
+        "[ STATUS ]",
+        "[ DATA ]",
+        "[ MODULES ]",
+        "[ SYSTEM ]",
+        "[ DETAILS ]"
+    ]);
+
+
+/* =====================================
+   TERMINAL
+===================================== */
+
+const terminalMessages = [
+
+    "Initializing random interface...",
+    "Loading visual modules...",
+    "Generating new configuration...",
+    "Synchronizing components...",
+    "Checking system state...",
+    "Loading dynamic data...",
+    "Creating session...",
+    "System ready."
+
+];
+
+const terminal =
+    document.getElementById("terminalBody");
+
+terminal.innerHTML = terminalMessages
+    .map((message,i) => {
+
+        const value =
+            num(10,99);
+
+        return `
+            <div class="terminal-line">
+                <span class="prompt">
+                    ${String(i+1).padStart(2,"0")}
+                </span>
+
+                <span>
+                    ${message}
+                </span>
+
+                <span class="${i%3===0 ? "green" : "purple"}">
+                    [${value}%]
+                </span>
+            </div>
+        `;
+
+    })
+    .join("") +
+    `
+        <div class="terminal-line">
+            <span class="prompt">></span>
+            <span class="green">
+                ready
+            </span>
+            <span class="cursor"></span>
+        </div>
+    `;
+
+document.getElementById("terminalTitle")
+    .textContent =
+        pick([
+            "system.log",
+            "kernel.log",
+            "session.log",
+            "network.log",
+            "core.log",
+            "random.log"
+        ]);
+
+
+/* =====================================
+   MODULES
+===================================== */
+
+const moduleNames = [
+
+    "Signal Engine",
+    "Visual Core",
+    "Data Layer",
+    "Random Node",
+    "System Monitor",
+    "Network Pulse",
+    "Pattern Engine",
+    "Dynamic Layer",
+    "Input Matrix",
+    "Future Module",
+    "Logic Core",
+    "Runtime Node"
+
+];
+
+const moduleTexts = [
+
+    "Processes visual information and generates a new configuration.",
+
+    "Controls the appearance, motion and atmosphere of the interface.",
+
+    "Creates numbers, labels and system information dynamically.",
+
+    "Introduces controlled randomness into the current session.",
+
+    "Tracks the state of the generated environment.",
+
+    "Simulates an active connection between different digital components.",
+
+    "Builds patterns from randomly selected elements.",
+
+    "Keeps every page variation slightly different.",
+
+    "Creates another possible path through the interface."
+
+];
+
+const moduleIcons = [
+    "◆","◇","◉","◎",
+    "△","▽","⊙","∎",
+    "∞","×","∿","✦"
+];
+
+const modules =
+    document.getElementById("modules");
+
+const moduleCount =
+    num(5,8);
+
+const shuffledModules =
+    [...moduleNames]
+    .sort(() => Math.random()-.5);
+
+for(let i=0;i<moduleCount;i++){
+
+    const item =
+        document.createElement("div");
+
+    item.className = "module";
+
+    item.innerHTML = `
+
+        <div class="module-number">
+            MODULE_${String(i+1).padStart(2,"0")}
+        </div>
+
+        <div class="module-icon">
+            ${pick(moduleIcons)}
+        </div>
+
+        <h3>
+            ${shuffledModules[i]}
+        </h3>
+
+        <p>
+            ${pick(moduleTexts)}
+        </p>
+
+    `;
+
+    modules.appendChild(item);
+}
+
+document.getElementById("modulesTitle")
+    .textContent = pick([
+        "Active Modules",
+        "System Components",
+        "Core Modules",
+        "Dynamic Components",
+        "Runtime Modules"
+    ]);
+
+document.getElementById("modulesCode")
+    .textContent =
+        "MODULES / " +
+        String(moduleCount).padStart(2,"0");
+
+
+/* =====================================
+   DATA
+===================================== */
+
+const dataNames = [
+
+    "Nodes",
+    "Signals",
+    "Requests",
+    "Packets",
+    "Processes",
+    "Sessions",
+    "Events",
+    "Cycles",
+    "Channels",
+    "Connections"
+
+];
+
+const dataGrid =
+    document.getElementById("dataGrid");
+
+const selectedData =
+    [...dataNames]
+    .sort(() => Math.random()-.5)
+    .slice(0,4);
+
+selectedData.forEach(name => {
+
+    const value =
+        num(100,9999);
+
+    const item =
+        document.createElement("div");
+
+    item.className = "data";
+
+    item.innerHTML = `
+
+        <div class="data-label">
+            ${name}
+        </div>
+
+        <div class="data-value">
+            ${value.toLocaleString()}
+        </div>
+
+        <div class="data-small">
+            +${num(1,99)}% ACTIVE
+        </div>
+
+    `;
+
+    dataGrid.appendChild(item);
+
+});
+
+document.getElementById("dataTitle")
+    .textContent = pick([
+        "Live Metrics",
+        "System Data",
+        "Current Statistics",
+        "Runtime Data",
+        "Network Metrics"
+    ]);
+
+
+/* =====================================
+   BARS
+===================================== */
+
+function createBars(target,count){
+
+    const labels = [
+        "CORE",
+        "SYNC",
+        "DATA",
+        "NODE",
+        "NET",
+        "CPU",
+        "IO",
+        "LINK"
+    ];
+
+    const container =
+        document.getElementById(target);
+
+    for(let i=0;i<count;i++){
+
+        const percent =
+            num(25,99);
+
+        const row =
+            document.createElement("div");
+
+        row.className = "bar-row";
+
+        row.innerHTML = `
+
+            <span>${pick(labels)}</span>
+
+            <div class="bar-bg">
+                <div
+                    class="bar-fill"
+                    style="width:${percent}%">
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
-                    });
-                }
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
-                }
-            });
-        });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
-            }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
-        }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
-            });
-        });
-        
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
-            });
-        });
-    </script>
+            <span>${percent}%</span>
+
+        `;
+
+        container.appendChild(row);
+
+    }
+
+}
+
+createBars("bars",num(4,6));
+createBars("bars2",num(4,6));
+
+
+/* =====================================
+   PANELS
+===================================== */
+
+document.getElementById("panelTitle")
+    .textContent = pick([
+        "System Activity",
+        "Network Pulse",
+        "Runtime State",
+        "Core Performance",
+        "Signal Monitor"
+    ]);
+
+document.getElementById("panelText")
+    .textContent = pick([
+        "Current activity generated from the active session configuration.",
+        "A visual representation of randomly generated runtime metrics.",
+        "The system is continuously creating values for this unique page.",
+        "Every bar represents a different randomly selected system signal."
+    ]);
+
+document.getElementById("panel2Title")
+    .textContent = pick([
+        "Network Status",
+        "Node Activity",
+        "Signal Overview",
+        "Connection State",
+        "Data Flow"
+    ]);
+
+document.getElementById("panel2Text")
+    .textContent = pick([
+        "Different signals are represented as independent dynamic values.",
+        "The current configuration contains several randomly generated channels.",
+        "Each refresh creates another combination of system activity.",
+        "This dashboard is visual only and does not require an external data source."
+    ]);
+
+
+/* =====================================
+   QUOTE
+===================================== */
+
+const quotes = [
+
+    "Every system begins with a single signal.",
+
+    "The next configuration is only one refresh away.",
+
+    "Randomness creates possibilities that fixed design cannot.",
+
+    "Technology becomes interesting when it starts to move.",
+
+    "There is always another configuration waiting to exist.",
+
+    "A different input can create a completely different result.",
+
+    "The system changes. The interface follows.",
+
+    "One page can contain thousands of possible experiences."
+
+];
+
+document.getElementById("quote")
+    .textContent = pick(quotes);
+
+document.getElementById("author")
+    .textContent =
+        "// " +
+        pick([
+            "SYSTEM NOTE",
+            "RUNTIME MESSAGE",
+            "DIGITAL JOURNAL",
+            "CORE LOG",
+            "UNKNOWN SOURCE",
+            "SESSION ARCHIVE"
+        ]);
+
+
+/* =====================================
+   FOOTER
+===================================== */
+
+document.getElementById("footerA")
+    .textContent =
+        "ID:" +
+        Math.random()
+        .toString(36)
+        .substring(2,10)
+        .toUpperCase();
+
+document.getElementById("footerB")
+    .textContent =
+        "© " +
+        new Date().getFullYear() +
+        " / " +
+        pick(brands) +
+        " / RANDOM SESSION";
+
+</script>
+
 </body>
 </html>
