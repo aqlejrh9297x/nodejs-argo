@@ -1,1373 +1,1180 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="Randomly generated digital interface">
-<title>System Interface</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Dynamic Page</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+* {
+    box-sizing: border-box;
 }
 
-:root{
-    --bg:#05070d;
-    --panel:#0b0f18;
-    --panel2:#101622;
-    --text:#f4f7fb;
-    --muted:#7f8a9d;
-    --line:#202938;
-    --accent:#00f0ff;
-    --accent2:#7c4dff;
-    --danger:#ff477e;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
 }
 
-html{
-    scroll-behavior:smooth;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    transition:
+        background 0.6s ease,
+        color 0.6s ease;
 }
 
-body{
-    min-height:100vh;
-    background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(0,240,255,.10),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 75%,
-            rgba(124,77,255,.12),
-            transparent 32%
-        ),
-        var(--bg);
-    color:var(--text);
-    font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-    overflow-x:hidden;
+button {
+    font: inherit;
+}
+
+.page {
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
 }
 
 /* =========================
-   SCANLINES
+   Background Effects
 ========================= */
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:100;
-    opacity:.035;
-    background:
-        repeating-linear-gradient(
-            to bottom,
-            transparent 0,
-            transparent 3px,
-            #fff 4px
-        );
+.background-orb {
+    position: fixed;
+    width: 40vw;
+    height: 40vw;
+    max-width: 600px;
+    max-height: 600px;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.orb-1 {
+    top: -15%;
+    left: -10%;
+}
+
+.orb-2 {
+    right: -10%;
+    bottom: -15%;
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    z-index: 1;
+    background-image:
+        radial-gradient(circle at 20% 20%, #fff 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, #fff 0 1px, transparent 1px);
+    background-size: 17px 17px, 23px 23px;
 }
 
 /* =========================
-   HEADER
+   Navigation
 ========================= */
 
-header{
-    width:min(1280px,92%);
-    margin:auto;
-    height:82px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid var(--line);
+.nav {
+    position: relative;
+    z-index: 10;
+    width: min(1200px, calc(100% - 40px));
+    margin: auto;
+    padding: 25px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-weight:900;
-    letter-spacing:2px;
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
 }
 
-.logo-box{
-    width:36px;
-    height:36px;
-    border:1px solid var(--accent);
-    color:var(--accent);
-    display:grid;
-    place-items:center;
-    font-size:15px;
-    box-shadow:
-        0 0 18px rgba(0,240,255,.2);
+.nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
 }
 
-.logo-name{
-    font-size:15px;
+.nav-links span {
+    font-size: 14px;
+    opacity: 0.7;
+    cursor: pointer;
 }
 
-nav{
-    display:flex;
-    gap:28px;
-}
-
-nav a{
-    color:var(--muted);
-    text-decoration:none;
-    font-size:12px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    transition:.25s;
-}
-
-nav a:hover{
-    color:var(--accent);
+.nav-button {
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: inherit;
 }
 
 /* =========================
-   MAIN
+   Main
 ========================= */
 
-main{
-    width:min(1280px,92%);
-    margin:auto;
+.main {
+    position: relative;
+    z-index: 5;
+    width: min(1200px, calc(100% - 40px));
+    margin: auto;
+    padding: 70px 0 100px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.eyebrow {
+    display: inline-block;
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.92;
+    letter-spacing: -5px;
+}
+
+.description {
+    max-width: 620px;
+    margin-top: 28px;
+    font-size: 18px;
+    line-height: 1.7;
+    opacity: 0.72;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 35px;
+}
+
+.action {
+    border: 0;
+    padding: 15px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 800;
+    transition: transform .2s ease;
+}
+
+.action:hover {
+    transform: translateY(-3px);
 }
 
 /* =========================
-   HERO
+   Visual Card
 ========================= */
 
-.hero{
-    min-height:650px;
-    display:grid;
-    grid-template-columns:1.15fr .85fr;
-    gap:60px;
-    align-items:center;
+.visual {
+    min-height: 430px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.status{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    color:var(--accent);
-    font-family:monospace;
-    font-size:11px;
-    letter-spacing:2px;
-    margin-bottom:25px;
+.visual-card {
+    width: min(360px, 80vw);
+    min-height: 360px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.status-dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:var(--accent);
-    box-shadow:
-        0 0 8px var(--accent),
-        0 0 18px var(--accent);
-    animation:pulse 1.5s infinite;
+.visual-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    position: absolute;
 }
 
-@keyframes pulse{
-    0%,100%{
-        opacity:1;
-    }
-    50%{
-        opacity:.35;
-    }
+.visual-square {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    transform: rotate(20deg);
 }
 
-h1{
-    font-size:clamp(54px,8vw,108px);
-    line-height:.86;
-    letter-spacing:-6px;
-    max-width:800px;
-}
-
-.accent{
-    color:var(--accent);
-}
-
-.hero-desc{
-    max-width:620px;
-    margin-top:30px;
-    color:var(--muted);
-    line-height:1.8;
-    font-size:16px;
-}
-
-.command-row{
-    display:flex;
-    gap:10px;
-    margin-top:32px;
-}
-
-.command{
-    padding:13px 18px;
-    border:1px solid var(--line);
-    background:var(--panel);
-    color:var(--text);
-    text-decoration:none;
-    font-family:monospace;
-    font-size:12px;
-    transition:.25s;
-}
-
-.command:hover{
-    border-color:var(--accent);
-    color:var(--accent);
-}
-
-.command.primary{
-    background:var(--accent);
-    color:#001014;
-    border-color:var(--accent);
-    font-weight:900;
+.visual-text {
+    position: relative;
+    z-index: 5;
+    font-size: 56px;
+    font-weight: 900;
 }
 
 /* =========================
-   TERMINAL VISUAL
+   Modules
 ========================= */
 
-.terminal{
-    background:#070a11;
-    border:1px solid var(--line);
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.45),
-        0 0 80px rgba(0,240,255,.05);
+.modules {
+    margin-top: 100px;
 }
 
-.terminal-head{
-    height:45px;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    align-items:center;
-    padding:0 15px;
-    gap:7px;
+.section-title {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: .55;
+    margin-bottom: 25px;
 }
 
-.circle{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#323b4b;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
 }
 
-.terminal-title{
-    margin-left:8px;
-    font-family:monospace;
-    font-size:10px;
-    color:var(--muted);
+.module {
+    min-height: 190px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s ease;
 }
 
-.terminal-body{
-    padding:24px;
-    font-family:
-        "SFMono-Regular",
-        Consolas,
-        monospace;
-    font-size:12px;
-    line-height:2;
-    color:#9aa6b8;
+.module:hover {
+    transform: translateY(-5px);
 }
 
-.green{
-    color:var(--accent);
+.module-icon {
+    font-size: 30px;
+    margin-bottom: 25px;
 }
 
-.purple{
-    color:var(--accent2);
+.module h3 {
+    margin: 0 0 10px;
+    font-size: 21px;
 }
 
-.pink{
-    color:var(--danger);
-}
-
-.terminal-line{
-    display:flex;
-    gap:12px;
-}
-
-.prompt{
-    color:var(--accent);
-}
-
-.cursor{
-    display:inline-block;
-    width:7px;
-    height:14px;
-    background:var(--accent);
-    vertical-align:-2px;
-    animation:blink 1s infinite;
-}
-
-@keyframes blink{
-    50%{
-        opacity:0;
-    }
+.module p {
+    margin: 0;
+    line-height: 1.6;
+    opacity: .65;
 }
 
 /* =========================
-   SECTION
+   Stats
 ========================= */
 
-.section{
-    margin:90px 0;
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 20px;
 }
 
-.section-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-    border-bottom:1px solid var(--line);
-    padding-bottom:18px;
-    margin-bottom:18px;
+.stat {
+    padding: 25px;
+    text-align: center;
 }
 
-.section-head h2{
-    font-size:27px;
-    letter-spacing:-1px;
+.stat-number {
+    font-size: 38px;
+    font-weight: 900;
 }
 
-.section-head span{
-    font-family:monospace;
-    font-size:10px;
-    color:var(--accent);
-    letter-spacing:2px;
+.stat-label {
+    margin-top: 7px;
+    font-size: 12px;
+    opacity: .55;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* =========================
-   MODULES
+   Quote
 ========================= */
 
-.modules{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
+.quote {
+    margin-top: 80px;
+    padding: 50px;
+    text-align: center;
 }
 
-.module{
-    min-height:220px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.025),
-            transparent
-        ),
-        var(--panel);
-    border:1px solid var(--line);
-    padding:25px;
-    position:relative;
-    overflow:hidden;
-    transition:.3s;
+.quote-text {
+    font-size: clamp(25px, 4vw, 48px);
+    line-height: 1.2;
+    font-weight: 800;
 }
 
-.module:hover{
-    border-color:#354154;
-    transform:translateY(-4px);
-}
-
-.module::after{
-    content:"";
-    position:absolute;
-    width:100px;
-    height:100px;
-    border-radius:50%;
-    background:var(--accent);
-    opacity:.05;
-    right:-40px;
-    bottom:-40px;
-}
-
-.module-number{
-    font-family:monospace;
-    font-size:10px;
-    color:var(--muted);
-}
-
-.module-icon{
-    width:46px;
-    height:46px;
-    border:1px solid var(--line);
-    margin:25px 0 20px;
-    display:grid;
-    place-items:center;
-    color:var(--accent);
-    font-size:17px;
-}
-
-.module h3{
-    font-size:17px;
-    margin-bottom:9px;
-}
-
-.module p{
-    color:var(--muted);
-    line-height:1.7;
-    font-size:13px;
+.quote-author {
+    margin-top: 22px;
+    opacity: .55;
 }
 
 /* =========================
-   DATA GRID
+   Footer
 ========================= */
 
-.data-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-}
-
-.data{
-    background:var(--panel);
-    border:1px solid var(--line);
-    padding:22px;
-}
-
-.data-label{
-    color:var(--muted);
-    font-family:monospace;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.data-value{
-    margin-top:13px;
-    font-size:31px;
-    font-weight:900;
-    letter-spacing:-1px;
-}
-
-.data-small{
-    margin-top:5px;
-    color:var(--accent);
-    font-family:monospace;
-    font-size:9px;
+.footer {
+    position: relative;
+    z-index: 5;
+    width: min(1200px, calc(100% - 40px));
+    margin: auto;
+    padding: 30px 0 45px;
+    display: flex;
+    justify-content: space-between;
+    opacity: .55;
+    font-size: 13px;
 }
 
 /* =========================
-   LARGE PANEL
+   Layout Variations
 ========================= */
 
-.dashboard{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+.layout-center .hero {
+    display: block;
+    text-align: center;
 }
 
-.panel{
-    min-height:330px;
-    border:1px solid var(--line);
-    background:var(--panel);
-    padding:30px;
+.layout-center .description {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.panel h2{
-    font-size:31px;
-    letter-spacing:-1px;
+.layout-center .actions {
+    justify-content: center;
 }
 
-.panel p{
-    color:var(--muted);
-    line-height:1.8;
-    margin-top:15px;
-    max-width:520px;
+.layout-center .visual {
+    margin-top: 60px;
 }
 
-/* bars */
-
-.bars{
-    margin-top:35px;
-    display:grid;
-    gap:14px;
+.layout-reverse .hero {
+    grid-template-columns: .8fr 1.2fr;
 }
 
-.bar-row{
-    display:grid;
-    grid-template-columns:80px 1fr 40px;
-    align-items:center;
-    gap:12px;
-    font-family:monospace;
-    font-size:10px;
+.layout-reverse .visual {
+    order: -1;
 }
 
-.bar-bg{
-    height:5px;
-    background:#1a2230;
+.layout-wide .hero {
+    grid-template-columns: 1fr;
 }
 
-.bar-fill{
-    height:100%;
-    background:var(--accent);
-    box-shadow:0 0 10px var(--accent);
+.layout-wide .visual {
+    min-height: 280px;
+}
+
+.layout-minimal .modules {
+    margin-top: 55px;
+}
+
+.layout-minimal .module {
+    min-height: 150px;
 }
 
 /* =========================
-   QUOTE
+   Mobile
 ========================= */
 
-.quote{
-    border-left:2px solid var(--accent);
-    padding:10px 0 10px 30px;
-}
+@media (max-width: 800px) {
 
-.quote-text{
-    max-width:900px;
-    font-size:clamp(25px,4vw,47px);
-    line-height:1.15;
-    font-weight:800;
-    letter-spacing:-2px;
-}
-
-.quote-author{
-    margin-top:20px;
-    color:var(--muted);
-    font-family:monospace;
-    font-size:11px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    width:min(1280px,92%);
-    margin:100px auto 25px;
-    border-top:1px solid var(--line);
-    padding-top:22px;
-    display:flex;
-    justify-content:space-between;
-    color:var(--muted);
-    font-family:monospace;
-    font-size:10px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:900px){
-
-    .hero{
-        grid-template-columns:1fr;
-        min-height:auto;
-        padding:80px 0 30px;
+    .nav-links span {
+        display: none;
     }
 
-    .modules{
-        grid-template-columns:1fr 1fr;
+    .main {
+        padding-top: 40px;
     }
 
-    .data-grid{
-        grid-template-columns:1fr 1fr;
+    .hero,
+    .layout-reverse .hero {
+        grid-template-columns: 1fr;
+        gap: 35px;
     }
 
-    .dashboard{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:600px){
-
-    header{
-        height:65px;
+    .layout-reverse .visual {
+        order: 0;
     }
 
-    nav{
-        display:none;
+    h1 {
+        font-size: 58px;
+        letter-spacing: -3px;
     }
 
-    h1{
-        letter-spacing:-4px;
+    .grid {
+        grid-template-columns: 1fr;
     }
 
-    .hero{
-        padding-top:60px;
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .command-row{
-        flex-wrap:wrap;
+    .quote {
+        padding: 30px 15px;
     }
 
-    .modules{
-        grid-template-columns:1fr;
-    }
-
-    .data-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .section{
-        margin:65px 0;
-    }
-
-    .section-head{
-        display:block;
-    }
-
-    .section-head span{
-        display:block;
-        margin-top:8px;
-    }
-
-    footer{
-        flex-direction:column;
-        gap:10px;
+    .footer {
+        flex-direction: column;
+        gap: 10px;
     }
 }
 </style>
+
 </head>
 
 <body>
 
-<header>
+<div class="page">
 
-    <div class="logo">
-        <div class="logo-box" id="logoMark">+</div>
-        <div class="logo-name" id="logoName">SYSTEM</div>
+```
+<div class="background-orb orb-1"></div>
+<div class="background-orb orb-2"></div>
+<div class="noise"></div>
+
+<nav class="nav">
+    <div class="logo" id="logo"></div>
+
+    <div class="nav-links">
+        <span id="nav1"></span>
+        <span id="nav2"></span>
+        <span id="nav3"></span>
+        <button class="nav-button" id="navButton"></button>
     </div>
+</nav>
 
-    <nav id="nav"></nav>
+<main class="main">
 
-</header>
+    <section class="hero">
 
+        <div class="hero-content">
 
-<main>
+            <div class="eyebrow" id="eyebrow"></div>
 
-<!-- HERO -->
+            <h1 id="title"></h1>
 
-<section class="hero">
+            <div class="description" id="description"></div>
 
-    <div>
-
-        <div class="status">
-            <span class="status-dot"></span>
-            <span id="status"></span>
-        </div>
-
-        <h1>
-            <span id="titleA"></span>
-            <span class="accent" id="titleB"></span>
-        </h1>
-
-        <p class="hero-desc" id="heroDesc"></p>
-
-        <div class="command-row">
-
-            <a href="#" class="command primary" id="buttonA"></a>
-
-            <a href="#" class="command" id="buttonB"></a>
+            <div class="actions">
+                <button class="action" id="button1"></button>
+                <button class="action" id="button2"></button>
+            </div>
 
         </div>
 
-    </div>
+        <div class="visual">
 
+            <div class="visual-card" id="visualCard">
 
-    <div class="terminal">
+                <div class="visual-circle" id="visualCircle"></div>
+                <div class="visual-square" id="visualSquare"></div>
 
-        <div class="terminal-head">
+                <div class="visual-text" id="visualText"></div>
 
-            <span class="circle"></span>
-            <span class="circle"></span>
-            <span class="circle"></span>
-
-            <span class="terminal-title" id="terminalTitle">
-                system.log
-            </span>
+            </div>
 
         </div>
 
-        <div class="terminal-body" id="terminalBody"></div>
-
-    </div>
-
-</section>
+    </section>
 
 
-<!-- MODULES -->
+    <section class="modules">
 
-<section class="section">
+        <div class="section-title" id="sectionTitle"></div>
 
-    <div class="section-head">
+        <div class="grid" id="moduleGrid"></div>
 
-        <h2 id="modulesTitle"></h2>
-
-        <span id="modulesCode"></span>
-
-    </div>
-
-    <div class="modules" id="modules"></div>
-
-</section>
+    </section>
 
 
-<!-- DATA -->
-
-<section class="section">
-
-    <div class="section-head">
-
-        <h2 id="dataTitle"></h2>
-
-        <span>LIVE / DATA</span>
-
-    </div>
-
-    <div class="data-grid" id="dataGrid"></div>
-
-</section>
+    <section class="stats" id="stats"></section>
 
 
-<!-- DASHBOARD -->
-
-<section class="section">
-
-    <div class="dashboard">
-
-        <div class="panel">
-
-            <h2 id="panelTitle"></h2>
-
-            <p id="panelText"></p>
-
-            <div class="bars" id="bars"></div>
-
-        </div>
-
-
-        <div class="panel">
-
-            <h2 id="panel2Title"></h2>
-
-            <p id="panel2Text"></p>
-
-            <div class="bars" id="bars2"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- QUOTE -->
-
-<section class="section">
-
-    <div class="quote">
+    <section class="quote">
 
         <div class="quote-text" id="quote"></div>
 
         <div class="quote-author" id="author"></div>
 
-    </div>
-
-</section>
+    </section>
 
 </main>
 
 
-<footer>
+<footer class="footer">
 
-    <span id="footerA"></span>
-
-    <span id="footerB"></span>
+    <span id="footerLeft"></span>
+    <span id="footerRight"></span>
 
 </footer>
+```
 
+</div>
 
 <script>
 
-/* =====================================
-   RANDOM ENGINE
-===================================== */
+/* ==========================================================
+   RANDOM DATA
+========================================================== */
 
-const pick = arr =>
-    arr[Math.floor(Math.random()*arr.length)];
-
-const num = (min,max) =>
-    Math.floor(
-        Math.random()*(max-min+1)
-    )+min;
+const random = arr =>
+    arr[Math.floor(Math.random() * arr.length)];
 
 
-/* =====================================
+const chance = probability =>
+    Math.random() < probability;
+
+
+/* ==========================================================
    COLOR THEMES
-===================================== */
+========================================================== */
 
 const themes = [
 
-    ["#00f0ff","#7c4dff"],
-    ["#39ff88","#00d9ff"],
-    ["#ff477e","#ff9f1c"],
-    ["#a855f7","#ec4899"],
-    ["#00ffcc","#0088ff"],
-    ["#ffe600","#ff5c00"],
-    ["#00c6ff","#0072ff"],
-    ["#ff3cac","#784ba0"],
-    ["#00e676","#76ff03"],
-    ["#ff1744","#ff9100"]
+    {
+        bg: "#0b1020",
+        text: "#f4f7ff",
+        primary: "#7c5cff",
+        secondary: "#19d3ff",
+        card: "rgba(255,255,255,.07)"
+    },
+
+    {
+        bg: "#fff8ef",
+        text: "#241b16",
+        primary: "#ff7043",
+        secondary: "#ffd166",
+        card: "#ffffff"
+    },
+
+    {
+        bg: "#071b16",
+        text: "#effff8",
+        primary: "#27e6a3",
+        secondary: "#75f2ff",
+        card: "rgba(255,255,255,.07)"
+    },
+
+    {
+        bg: "#160b22",
+        text: "#fff3ff",
+        primary: "#ff4fd8",
+        secondary: "#8f6bff",
+        card: "rgba(255,255,255,.08)"
+    },
+
+    {
+        bg: "#f4f6f8",
+        text: "#101820",
+        primary: "#246bfe",
+        secondary: "#19b5fe",
+        card: "#ffffff"
+    },
+
+    {
+        bg: "#171717",
+        text: "#f7f7f7",
+        primary: "#e8ff00",
+        secondary: "#ff4d00",
+        card: "#242424"
+    },
+
+    {
+        bg: "#fff0f5",
+        text: "#301522",
+        primary: "#ff3b81",
+        secondary: "#a855f7",
+        card: "#ffffff"
+    },
+
+    {
+        bg: "#08111c",
+        text: "#eaf7ff",
+        primary: "#00b8ff",
+        secondary: "#00ffb3",
+        card: "rgba(255,255,255,.06)"
+    }
 
 ];
 
-const theme = pick(themes);
 
-document.documentElement.style.setProperty(
-    "--accent",
-    theme[0]
-);
+const theme = random(themes);
 
-document.documentElement.style.setProperty(
-    "--accent2",
-    theme[1]
-);
+document.body.style.background = theme.bg;
+document.body.style.color = theme.text;
+
+document.documentElement.style.setProperty("--primary", theme.primary);
+document.documentElement.style.setProperty("--secondary", theme.secondary);
 
 
-/* =====================================
-   BRAND
-===================================== */
+/* ==========================================================
+   RANDOM LAYOUT
+========================================================== */
 
-const brands = [
+const layouts = [
+    "layout-normal",
+    "layout-center",
+    "layout-reverse",
+    "layout-wide",
+    "layout-minimal"
+];
 
-    "NEXUS",
-    "VECTOR",
-    "CORE",
-    "PULSE",
-    "QUANT",
-    "ORBIT",
+document.querySelector(".page").classList.add(random(layouts));
+
+
+/* ==========================================================
+   TEXT
+========================================================== */
+
+const logos = [
     "NOVA",
+    "ORBIT",
+    "LUMEN",
+    "VECTOR",
+    "MOTION",
     "AETHER",
-    "MATRIX",
+    "PULSE",
     "FLUX",
-    "NODE",
-    "ZERO",
-    "SIGNAL",
-    "ION",
-    "CIRCUIT",
-    "VOLT"
-
+    "MIRAGE",
+    "ECHO"
 ];
 
-const symbols = [
-    "+","×","◆","◇",
-    "◉","◎","△","▽",
-    "∎","∿","∞","⊙"
+const eyebrows = [
+    "NEW EXPERIENCE",
+    "DIGITAL STUDIO",
+    "CREATIVE SYSTEM",
+    "NEXT GENERATION",
+    "FUTURE LAB",
+    "RANDOM EDITION",
+    "ONLINE EXPERIENCE",
+    "DISCOVER SOMETHING",
+    "VERSION 2026"
 ];
 
-document.getElementById("logoName")
-    .textContent = pick(brands);
-
-document.getElementById("logoMark")
-    .textContent = pick(symbols);
-
-
-/* =====================================
-   NAV
-===================================== */
-
-const navSets = [
-
-    ["System","Modules","Data","Status"],
-    ["Overview","Network","Metrics","About"],
-    ["Dashboard","Signal","Monitor","Logs"],
-    ["Core","Engine","Nodes","Info"]
-
-];
-
-document.getElementById("nav").innerHTML =
-    pick(navSets)
-    .map(x =>
-        `<a href="#">${x}</a>`
-    )
-    .join("");
-
-
-/* =====================================
-   HERO
-===================================== */
-
-const titleA = [
-
-    "Build",
-    "Enter",
-    "Explore",
-    "Connect",
-    "Create",
-    "Control",
-    "Discover",
-    "Monitor",
-    "Access",
-    "Initialize"
-
-];
-
-const titleB = [
-
-    "The Future",
-    "New Systems",
-    "Another World",
-    "Digital Space",
-    "The Unknown",
-    "Infinite Data",
-    "New Signals",
-    "Beyond Limits",
-    "The Network",
-    "What Comes Next"
-
+const titles = [
+    "Make Ideas Feel Different.",
+    "A New Kind of Digital Space.",
+    "Built for the Unexpected.",
+    "Create Beyond the Ordinary.",
+    "Everything Changes Here.",
+    "Design Your Own Moment.",
+    "Explore Another Direction.",
+    "The Future Starts Randomly.",
+    "Less Predictable. More Interesting.",
+    "Turn Imagination Into Motion."
 ];
 
 const descriptions = [
+    "A dynamic experience where every refresh creates a new combination of ideas, colors and visual structures.",
+    "There is no fixed version of this page. Each visit creates another visual interpretation from the same creative system.",
+    "Randomized layouts, typography, modules and colors combine to create a completely different atmosphere every time.",
+    "A small experiment in generative web design. Refresh the page and discover another version.",
+    "Different structure. Different mood. Different words. One page that never looks exactly the same."
+];
 
-    "A dynamic digital interface generated specifically for this visit. Every refresh creates another configuration.",
+const navWords = [
+    ["Explore", "Studio", "About"],
+    ["Discover", "Ideas", "Vision"],
+    ["Home", "Projects", "Contact"],
+    ["Signal", "Motion", "Future"],
+    ["Create", "Random", "About"]
+];
 
-    "A constantly changing system of color, data, modules and visual signals designed to feel different every time.",
+const buttons = [
+    ["Explore Now", "View Details"],
+    ["Start Exploring", "Learn More"],
+    ["Discover", "Continue"],
+    ["Enter Space", "See More"],
+    ["Generate", "Explore"],
+    ["Get Started", "Read More"]
+];
 
-    "This interface has no permanent appearance. Its structure and content are generated dynamically in the browser.",
+const sectionTitles = [
+    "Selected Modules",
+    "Inside The Experience",
+    "Random Features",
+    "Explore The System",
+    "What's Inside",
+    "Creative Components"
+];
 
-    "A minimal experimental dashboard where technology, randomness and visual design meet.",
+const quotes = [
+    "Creativity begins where predictability ends.",
+    "The best ideas rarely arrive in straight lines.",
+    "Every refresh is another possibility.",
+    "Make something unexpected.",
+    "There is beauty in randomness.",
+    "Design is not always about control."
+];
 
-    "One page. Thousands of possible variations. Refresh to initialize another configuration."
+const authors = [
+    "— Digital Notes",
+    "— The Random Studio",
+    "— Creative System",
+    "— Unknown Designer",
+    "— Future Archive",
+    "— Generated Thought"
+];
+
+
+/* ==========================================================
+   APPLY TEXT
+========================================================== */
+
+document.getElementById("logo").textContent = random(logos);
+document.getElementById("eyebrow").textContent = random(eyebrows);
+document.getElementById("title").textContent = random(titles);
+document.getElementById("description").textContent = random(descriptions);
+
+const nav = random(navWords);
+
+document.getElementById("nav1").textContent = nav[0];
+document.getElementById("nav2").textContent = nav[1];
+document.getElementById("nav3").textContent = nav[2];
+
+const btn = random(buttons);
+
+document.getElementById("button1").textContent = btn[0];
+document.getElementById("button2").textContent = btn[1];
+
+document.getElementById("navButton").textContent =
+    random(["Menu", "Enter", "Open", "Explore"]);
+
+document.getElementById("sectionTitle").textContent =
+    random(sectionTitles);
+
+document.getElementById("quote").textContent =
+    random(quotes);
+
+document.getElementById("author").textContent =
+    random(authors);
+
+
+/* ==========================================================
+   MODULE GENERATOR
+========================================================== */
+
+const modules = [
+
+    {
+        icon: "✦",
+        title: "Creative Engine",
+        text: "A flexible system designed to generate a different visual direction on every visit."
+    },
+
+    {
+        icon: "◉",
+        title: "Dynamic Structure",
+        text: "Content blocks can move, resize and reorganize themselves into new compositions."
+    },
+
+    {
+        icon: "⌁",
+        title: "Fluid Motion",
+        text: "Small transitions make every interface feel alive without overwhelming the experience."
+    },
+
+    {
+        icon: "◆",
+        title: "Color System",
+        text: "A new palette is selected automatically from multiple carefully designed themes."
+    },
+
+    {
+        icon: "∞",
+        title: "Infinite Variations",
+        text: "Combining different elements produces a huge number of possible page variations."
+    },
+
+    {
+        icon: "✺",
+        title: "Fresh Perspective",
+        text: "Refresh the page and discover another interpretation of the same creative idea."
+    },
+
+    {
+        icon: "☼",
+        title: "Light & Space",
+        text: "Visual balance changes with every generated composition."
+    },
+
+    {
+        icon: "▣",
+        title: "Modular Design",
+        text: "Independent components can appear, disappear or change position."
+    },
+
+    {
+        icon: "⌘",
+        title: "Digital Playground",
+        text: "A playful environment for experimenting with modern web layouts."
+    }
 
 ];
 
-document.getElementById("status")
-    .textContent = pick([
-        "SYSTEM ONLINE",
-        "CONNECTION ACTIVE",
-        "NODE INITIALIZED",
-        "RANDOM MODE ACTIVE",
-        "SIGNAL DETECTED",
-        "CORE OPERATIONAL",
-        "SESSION READY"
-    ]);
 
-document.getElementById("titleA")
-    .textContent = pick(titleA) + " ";
+const shuffledModules = [...modules].sort(
+    () => Math.random() - 0.5
+);
 
-document.getElementById("titleB")
-    .textContent = pick(titleB);
+const moduleCount = 3 + Math.floor(Math.random() * 4);
 
-document.getElementById("heroDesc")
-    .textContent = pick(descriptions);
+const selectedModules =
+    shuffledModules.slice(0, moduleCount);
 
-document.getElementById("buttonA")
-    .textContent = pick([
-        "[ ENTER ]",
-        "[ START ]",
-        "[ EXPLORE ]",
-        "[ CONNECT ]",
-        "[ INITIALIZE ]"
-    ]);
-
-document.getElementById("buttonB")
-    .textContent = pick([
-        "[ STATUS ]",
-        "[ DATA ]",
-        "[ MODULES ]",
-        "[ SYSTEM ]",
-        "[ DETAILS ]"
-    ]);
+const grid =
+    document.getElementById("moduleGrid");
 
 
-/* =====================================
-   TERMINAL
-===================================== */
+selectedModules.forEach(module => {
 
-const terminalMessages = [
+    const element = document.createElement("article");
 
-    "Initializing random interface...",
-    "Loading visual modules...",
-    "Generating new configuration...",
-    "Synchronizing components...",
-    "Checking system state...",
-    "Loading dynamic data...",
-    "Creating session...",
-    "System ready."
+    element.className = "module";
 
-];
-
-const terminal =
-    document.getElementById("terminalBody");
-
-terminal.innerHTML = terminalMessages
-    .map((message,i) => {
-
-        const value =
-            num(10,99);
-
-        return `
-            <div class="terminal-line">
-                <span class="prompt">
-                    ${String(i+1).padStart(2,"0")}
-                </span>
-
-                <span>
-                    ${message}
-                </span>
-
-                <span class="${i%3===0 ? "green" : "purple"}">
-                    [${value}%]
-                </span>
-            </div>
-        `;
-
-    })
-    .join("") +
-    `
-        <div class="terminal-line">
-            <span class="prompt">></span>
-            <span class="green">
-                ready
-            </span>
-            <span class="cursor"></span>
-        </div>
+    element.innerHTML = `
+        <div class="module-icon">${module.icon}</div>
+        <h3>${module.title}</h3>
+        <p>${module.text}</p>
     `;
 
-document.getElementById("terminalTitle")
-    .textContent =
-        pick([
-            "system.log",
-            "kernel.log",
-            "session.log",
-            "network.log",
-            "core.log",
-            "random.log"
-        ]);
-
-
-/* =====================================
-   MODULES
-===================================== */
-
-const moduleNames = [
-
-    "Signal Engine",
-    "Visual Core",
-    "Data Layer",
-    "Random Node",
-    "System Monitor",
-    "Network Pulse",
-    "Pattern Engine",
-    "Dynamic Layer",
-    "Input Matrix",
-    "Future Module",
-    "Logic Core",
-    "Runtime Node"
-
-];
-
-const moduleTexts = [
-
-    "Processes visual information and generates a new configuration.",
-
-    "Controls the appearance, motion and atmosphere of the interface.",
-
-    "Creates numbers, labels and system information dynamically.",
-
-    "Introduces controlled randomness into the current session.",
-
-    "Tracks the state of the generated environment.",
-
-    "Simulates an active connection between different digital components.",
-
-    "Builds patterns from randomly selected elements.",
-
-    "Keeps every page variation slightly different.",
-
-    "Creates another possible path through the interface."
-
-];
-
-const moduleIcons = [
-    "◆","◇","◉","◎",
-    "△","▽","⊙","∎",
-    "∞","×","∿","✦"
-];
-
-const modules =
-    document.getElementById("modules");
-
-const moduleCount =
-    num(5,8);
-
-const shuffledModules =
-    [...moduleNames]
-    .sort(() => Math.random()-.5);
-
-for(let i=0;i<moduleCount;i++){
-
-    const item =
-        document.createElement("div");
-
-    item.className = "module";
-
-    item.innerHTML = `
-
-        <div class="module-number">
-            MODULE_${String(i+1).padStart(2,"0")}
-        </div>
-
-        <div class="module-icon">
-            ${pick(moduleIcons)}
-        </div>
-
-        <h3>
-            ${shuffledModules[i]}
-        </h3>
-
-        <p>
-            ${pick(moduleTexts)}
-        </p>
-
-    `;
-
-    modules.appendChild(item);
-}
-
-document.getElementById("modulesTitle")
-    .textContent = pick([
-        "Active Modules",
-        "System Components",
-        "Core Modules",
-        "Dynamic Components",
-        "Runtime Modules"
-    ]);
-
-document.getElementById("modulesCode")
-    .textContent =
-        "MODULES / " +
-        String(moduleCount).padStart(2,"0");
-
-
-/* =====================================
-   DATA
-===================================== */
-
-const dataNames = [
-
-    "Nodes",
-    "Signals",
-    "Requests",
-    "Packets",
-    "Processes",
-    "Sessions",
-    "Events",
-    "Cycles",
-    "Channels",
-    "Connections"
-
-];
-
-const dataGrid =
-    document.getElementById("dataGrid");
-
-const selectedData =
-    [...dataNames]
-    .sort(() => Math.random()-.5)
-    .slice(0,4);
-
-selectedData.forEach(name => {
-
-    const value =
-        num(100,9999);
-
-    const item =
-        document.createElement("div");
-
-    item.className = "data";
-
-    item.innerHTML = `
-
-        <div class="data-label">
-            ${name}
-        </div>
-
-        <div class="data-value">
-            ${value.toLocaleString()}
-        </div>
-
-        <div class="data-small">
-            +${num(1,99)}% ACTIVE
-        </div>
-
-    `;
-
-    dataGrid.appendChild(item);
+    grid.appendChild(element);
 
 });
 
-document.getElementById("dataTitle")
-    .textContent = pick([
-        "Live Metrics",
-        "System Data",
-        "Current Statistics",
-        "Runtime Data",
-        "Network Metrics"
+
+/* ==========================================================
+   RANDOM STATS
+========================================================== */
+
+const stats = document.getElementById("stats");
+
+const statLabels = [
+    "Possibilities",
+    "Experiments",
+    "Variations",
+    "Components",
+    "Directions",
+    "Iterations"
+];
+
+const shuffledLabels =
+    [...statLabels].sort(() => Math.random() - .5);
+
+for (let i = 0; i < 4; i++) {
+
+    const number =
+        Math.floor(Math.random() * 900) + 100;
+
+    const stat =
+        document.createElement("div");
+
+    stat.className = "stat";
+
+    stat.innerHTML = `
+        <div class="stat-number">${number}</div>
+        <div class="stat-label">${shuffledLabels[i]}</div>
+    `;
+
+    stats.appendChild(stat);
+}
+
+
+/* ==========================================================
+   VISUAL RANDOMIZATION
+========================================================== */
+
+const visualCard =
+    document.getElementById("visualCard");
+
+const visualCircle =
+    document.getElementById("visualCircle");
+
+const visualSquare =
+    document.getElementById("visualSquare");
+
+const visualText =
+    document.getElementById("visualText");
+
+
+visualCard.style.background =
+    theme.card;
+
+visualCard.style.border =
+    chance(.5)
+        ? "1px solid rgba(255,255,255,.12)"
+        : "0";
+
+visualCard.style.borderRadius =
+    random([
+        "20px",
+        "35px",
+        "60px",
+        "0",
+        "50%"
+    ]);
+
+visualCircle.style.background =
+    theme.primary;
+
+visualSquare.style.background =
+    theme.secondary;
+
+visualCircle.style.opacity =
+    random([".65", ".8", ".9"]);
+
+visualSquare.style.opacity =
+    random([".35", ".5", ".7"]);
+
+visualCircle.style.transform =
+    `translate(
+        ${Math.floor(Math.random() * 80 - 40)}px,
+        ${Math.floor(Math.random() * 80 - 40)}px
+    )`;
+
+visualSquare.style.transform =
+    `rotate(${Math.floor(Math.random() * 80 - 40)}deg)
+     translate(
+        ${Math.floor(Math.random() * 70 - 35)}px,
+        ${Math.floor(Math.random() * 70 - 35)}px
+     )`;
+
+visualText.textContent =
+    random(["01", "∞", "X", "AI", "N", "26", "✦", "◎"]);
+
+
+/* ==========================================================
+   BUTTON STYLE
+========================================================== */
+
+document.getElementById("button1").style.background =
+    theme.primary;
+
+document.getElementById("button1").style.color =
+    theme.bg;
+
+document.getElementById("button2").style.background =
+    "transparent";
+
+document.getElementById("button2").style.color =
+    theme.text;
+
+document.getElementById("button2").style.border =
+    `1px solid ${theme.primary}`;
+
+
+/* ==========================================================
+   EYEBROW
+========================================================== */
+
+const eyebrow =
+    document.getElementById("eyebrow");
+
+eyebrow.style.background =
+    theme.card;
+
+eyebrow.style.color =
+    theme.primary;
+
+
+/* ==========================================================
+   NAV BUTTON
+========================================================== */
+
+const navButton =
+    document.getElementById("navButton");
+
+navButton.style.background =
+    theme.primary;
+
+navButton.style.color =
+    theme.bg;
+
+
+/* ==========================================================
+   MODULE RANDOM SHAPE
+========================================================== */
+
+document.querySelectorAll(".module")
+.forEach(module => {
+
+    module.style.background =
+        theme.card;
+
+    module.style.border =
+        chance(.6)
+            ? "1px solid rgba(255,255,255,.08)"
+            : "0";
+
+    module.style.borderRadius =
+        random([
+            "12px",
+            "20px",
+            "30px",
+            "0px",
+            "40px"
+        ]);
+
+});
+
+
+/* ==========================================================
+   STATS RANDOM STYLE
+========================================================== */
+
+document.querySelectorAll(".stat")
+.forEach(stat => {
+
+    stat.style.borderTop =
+        chance(.5)
+            ? `1px solid ${theme.primary}`
+            : "0";
+
+});
+
+
+/* ==========================================================
+   QUOTE STYLE
+========================================================== */
+
+const quote =
+    document.querySelector(".quote");
+
+quote.style.background =
+    theme.card;
+
+quote.style.borderRadius =
+    random([
+        "20px",
+        "30px",
+        "50px",
+        "0"
     ]);
 
 
-/* =====================================
-   BARS
-===================================== */
+/* ==========================================================
+   BACKGROUND ORBS
+========================================================== */
 
-function createBars(target,count){
+document.querySelector(".orb-1")
+    .style.background = theme.primary;
 
-    const labels = [
-        "CORE",
-        "SYNC",
-        "DATA",
-        "NODE",
-        "NET",
-        "CPU",
-        "IO",
-        "LINK"
-    ];
+document.querySelector(".orb-2")
+    .style.background = theme.secondary;
 
-    const container =
-        document.getElementById(target);
 
-    for(let i=0;i<count;i++){
+/* ==========================================================
+   FOOTER
+========================================================== */
 
-        const percent =
-            num(25,99);
+document.getElementById("footerLeft").textContent =
+    random([
+        "© 2026 Random Studio",
+        "Generated Experience",
+        "Dynamic Web System",
+        "Creative Playground"
+    ]);
 
-        const row =
-            document.createElement("div");
+document.getElementById("footerRight").textContent =
+    random([
+        "Every refresh is different.",
+        "Built with randomness.",
+        "No two visits are the same.",
+        "Explore again."
+    ]);
 
-        row.className = "bar-row";
 
-        row.innerHTML = `
+/* ==========================================================
+   RANDOM FONT
+========================================================== */
 
-            <span>${pick(labels)}</span>
+const fonts = [
+    "Arial, Helvetica, sans-serif",
+    "Verdana, Geneva, sans-serif",
+    "Georgia, serif",
+    "\"Trebuchet MS\", sans-serif",
+    "\"Courier New\", monospace",
+    "Impact, sans-serif"
+];
 
-            <div class="bar-bg">
-                <div
-                    class="bar-fill"
-                    style="width:${percent}%">
-                </div>
-            </div>
+document.body.style.fontFamily =
+    random(fonts);
 
-            <span>${percent}%</span>
 
-        `;
+/* ==========================================================
+   RANDOM TITLE SIZE
+========================================================== */
 
-        container.appendChild(row);
+const title =
+    document.getElementById("title");
 
-    }
+title.style.fontWeight =
+    random(["700", "800", "900"]);
+
+title.style.textTransform =
+    random([
+        "none",
+        "uppercase",
+        "none"
+    ]);
+
+
+/* ==========================================================
+   RANDOM MODULE ORDER
+========================================================== */
+
+if (chance(.5)) {
+
+    grid.style.gridTemplateColumns =
+        "repeat(2, 1fr)";
 
 }
 
-createBars("bars",num(4,6));
-createBars("bars2",num(4,6));
+if (chance(.25)) {
+
+    grid.style.gridTemplateColumns =
+        "repeat(4, 1fr)";
+
+}
 
 
-/* =====================================
-   PANELS
-===================================== */
+/* ==========================================================
+   RANDOM PAGE ROTATION / DECORATION
+========================================================== */
 
-document.getElementById("panelTitle")
-    .textContent = pick([
-        "System Activity",
-        "Network Pulse",
-        "Runtime State",
-        "Core Performance",
-        "Signal Monitor"
-    ]);
+if (chance(.3)) {
 
-document.getElementById("panelText")
-    .textContent = pick([
-        "Current activity generated from the active session configuration.",
-        "A visual representation of randomly generated runtime metrics.",
-        "The system is continuously creating values for this unique page.",
-        "Every bar represents a different randomly selected system signal."
-    ]);
+    document.querySelector(".visual-card")
+        .style.transform =
+        `rotate(${Math.floor(Math.random() * 7 - 3)}deg)`;
 
-document.getElementById("panel2Title")
-    .textContent = pick([
-        "Network Status",
-        "Node Activity",
-        "Signal Overview",
-        "Connection State",
-        "Data Flow"
-    ]);
-
-document.getElementById("panel2Text")
-    .textContent = pick([
-        "Different signals are represented as independent dynamic values.",
-        "The current configuration contains several randomly generated channels.",
-        "Each refresh creates another combination of system activity.",
-        "This dashboard is visual only and does not require an external data source."
-    ]);
+}
 
 
-/* =====================================
-   QUOTE
-===================================== */
+/* ==========================================================
+   CONSOLE DEBUG
+========================================================== */
 
-const quotes = [
+console.log(
+    "%cRandom page generated",
+    "font-size:18px;font-weight:bold;"
+);
 
-    "Every system begins with a single signal.",
-
-    "The next configuration is only one refresh away.",
-
-    "Randomness creates possibilities that fixed design cannot.",
-
-    "Technology becomes interesting when it starts to move.",
-
-    "There is always another configuration waiting to exist.",
-
-    "A different input can create a completely different result.",
-
-    "The system changes. The interface follows.",
-
-    "One page can contain thousands of possible experiences."
-
-];
-
-document.getElementById("quote")
-    .textContent = pick(quotes);
-
-document.getElementById("author")
-    .textContent =
-        "// " +
-        pick([
-            "SYSTEM NOTE",
-            "RUNTIME MESSAGE",
-            "DIGITAL JOURNAL",
-            "CORE LOG",
-            "UNKNOWN SOURCE",
-            "SESSION ARCHIVE"
-        ]);
-
-
-/* =====================================
-   FOOTER
-===================================== */
-
-document.getElementById("footerA")
-    .textContent =
-        "ID:" +
-        Math.random()
-        .toString(36)
-        .substring(2,10)
-        .toUpperCase();
-
-document.getElementById("footerB")
-    .textContent =
-        "© " +
-        new Date().getFullYear() +
-        " / " +
-        pick(brands) +
-        " / RANDOM SESSION";
+console.log({
+    theme: theme,
+    layout: document.querySelector(".page").className,
+    modules: selectedModules.length
+});
 
 </script>
 
